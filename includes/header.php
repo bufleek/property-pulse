@@ -29,7 +29,7 @@ include 'config/db.php';
                         <li><a href="upload.php" class="btn btn-solid-inverse">List a Property</a></li>
                         <li><a href="logout.php">Logout</a></li>
                     <?php else : ?>
-                        <li><a href="register.php" class="btn btn-outline-inverse">Register</a></li>
+                        <li><a href="signup.php" class="btn btn-outline-inverse">Register</a></li>
                         <li><a href="login.php" class="btn btn-solid-inverse">Sign In</a></li>
                     <?php endif; ?>
                 </ul>

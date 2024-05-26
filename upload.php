@@ -1,12 +1,8 @@
-<?php
+<?php include 'includes/header.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-?>
-
-
-<?php include 'includes/header.php';
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $title = mysqli_real_escape_string($conn, $_POST['title']);
   $description = mysqli_real_escape_string($conn, $_POST['description']);
