@@ -28,14 +28,17 @@ include 'config/db.php';
                 </a>
             </div>
             <nav>
-                <ul>
+                <div onclick="toggleMenu()" class="menu-toggle menu-icon">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <ul class="menu" id="menu">
                     <li><a href="/">Home</a></li>
                     <li><a href="properties.php">Properties</a></li>
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <li><a href="upload.php" class="btn btn-solid-inverse">List a Property</a></li>
                         <li class="user-menu">
                             <a href="#" class="btn btn-solid-inverse">
-                                <i class="fa fa-user"></i> 
+                                <i class="fa fa-user"></i>
                             </a>
                             <ul class="user-menu-dropdown">
                                 <li><a href="listings.php">My Listings</a></li>
@@ -44,10 +47,25 @@ include 'config/db.php';
                             </ul>
                         </li>
                     <?php else : ?>
-                        <li><a href="signup.php" class="btn btn-outline-inverse">Register</a></li>
+                        <li>
+                            <div>
+                                <a href="signup.php" class="btn btn-outline-inverse">Register</a>
+                            </div>
+                        </li>
                         <li><a href="login.php" class="btn btn-solid-inverse">Sign In</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            if (menu.style.display === 'none') {
+                menu.style.display = 'flex';
+            } else {
+                menu.style.display = 'none';
+            }
+        }
+    </script>

@@ -60,31 +60,6 @@ if ($result) {
                     <option value="100000">100,000 USD</option>
                 </select>
             </div>
-            <div class="filters">
-                <select name="furnished">
-                    <option value="">Furnishing</option>
-                    <option value="true">Furnished</option>
-                    <option value="false">Unfurnished</option>
-                </select>
-                <select name="serviced">
-                    <option value="">Serviced</option>
-                    <option value="true">Serviced</option>
-                </select>
-                <select name="shared">
-                    <option value="">Shared</option>
-                    <option value="true">Shared</option>
-                </select>
-                <select name="added_to_site">
-                    <option value="">Added to site</option>
-                    <option value="last-24-hours">Last 24 hours</option>
-                    <option value="last-3-days">Last 3 days</option>
-                    <option value="last-7-days">Last 7 days</option>
-                    <option value="last-14-days">Last 14 days</option>
-                    <option value="last-30-days">Last 30 days</option>
-                </select>
-                <input type="text" placeholder="Keywords (e.g., 'pool' or 'jacuzzi')" name="keywords" />
-                <input type="text" placeholder="Property Ref (e.g., 83256)" name="property_ref" />
-            </div>
 
             <button type="submit">Search</button>
         </form>
