@@ -1,8 +1,15 @@
 <?php include 'includes/header.php';
 
+// Ensure that the user is logged in
+if (!isset($_SESSION['user_id'])) {
+  header('Location: login.php?next_url=upload.php');
+  exit;
+}
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $title = mysqli_real_escape_string($conn, $_POST['title']);
   $description = mysqli_real_escape_string($conn, $_POST['description']);

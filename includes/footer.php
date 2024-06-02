@@ -1,5 +1,5 @@
 <footer>
-    <div class="container">
+    <div class="container" style="padding: 20px;">
         <p>&copy; <?php echo date('Y'); ?> Property Pulse. All rights reserved.</p>
     </div>
 </footer>

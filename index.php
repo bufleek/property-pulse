@@ -145,4 +145,12 @@ if ($result) {
     </div>
 </section>
 
+<section class="list-property-banner">
+    <div class="container">
+        <h2>List Your Property</h2>
+        <p>Are you a property owner? List your property with us and reach thousands of potential buyers or renters.</p>
+        <a href="upload.php" class="btn">List Now</a>
+    </div>
+</section>
+
 <?php include 'includes/footer.php'; ?>
