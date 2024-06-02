@@ -355,6 +355,23 @@ label {
   padding: 8px 20px;
 }
 
+.property-card{
+  position: relative;
+}
+
+.property-card .actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .property-card img {
   width: 100%;
   height: auto;

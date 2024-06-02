@@ -38,7 +38,7 @@ include 'config/db.php';
                                 <i class="fa fa-user"></i> 
                             </a>
                             <ul class="user-menu-dropdown">
-                                <li><a href="#">My Properties</a></li>
+                                <li><a href="listings.php">My Listings</a></li>
                                 <li><a href="purchases.php">My Purchases</a></li>
                                 <li><a href="logout.php">Logout</a></li>
                             </ul>

@@ -11,7 +11,6 @@ if (!$property_id) {
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page
     header("Location: login.php?next_url=buy.php?property_id=$property_id");
     exit;
 }
@@ -78,3 +77,6 @@ if (mysqli_num_rows($result) > 0) {
         </form>
     </div>
 </div>
+
+
+<?php include 'includes/footer.php'; ?>

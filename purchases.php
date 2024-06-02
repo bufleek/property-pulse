@@ -86,3 +86,7 @@ $query = "SELECT p.title, pu.amount, pu.created_at
             ?>
         </tbody>
     </table>
+
+</div>
+
+<?php include 'includes/footer.php'; ?>
