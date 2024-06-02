@@ -1,13 +1,13 @@
 <?php
-$host = 'localhost';
-$user = 'id22222243_property_pulse';
-$password = "'E'Qa(5gJEdYEs.";
-$database = 'id22222243_property_pulse';
-
 // $host = 'localhost';
-// $user = 'property_pulse';
-// $password = 'password';
-// $database = 'property_pulse';
+// $user = 'id22222243_property_pulse';
+// $password = "'E'Qa(5gJEdYEs.";
+// $database = 'id22222243_property_pulse';
+
+$host = 'localhost';
+$user = 'property_pulse';
+$password = 'password';
+$database = 'property_pulse';
 
 $conn = mysqli_connect($host, $user, $password, $database);
 

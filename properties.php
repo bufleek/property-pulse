@@ -5,7 +5,7 @@ $properties = [];
 $filters_exist = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $query = "SELECT * FROM properties WHERE 1=1";
+    $query = "SELECT * FROM properties WHERE available=true";
 
     if (!empty($_GET['property_type'])) {
         $property_type = mysqli_real_escape_string($conn, $_GET['property_type']);
@@ -88,6 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $filters_exist = true;
     }
 
+    if (!empty($_GET['area_code'])) {
+        $area_code = mysqli_real_escape_string($conn, $_GET['area_code']);
+        $query .= " AND area_code = '$area_code'";
+        $filters_exist = true;
+    }
 
     $query .= " ORDER BY created_at DESC";
 
@@ -162,12 +167,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             ?>
 
                             <img src="<?php echo $image_url; ?>" alt="Property Image">
-                            <h3><?php echo htmlspecialchars($property['title']); ?></h3>
-                            <p>$<?php echo number_format($property['price']); ?> - <?php echo $property['bedrooms']; ?> Beds</p>
+                            <div class="info">
+                                <div class="flex space-between">
+                                    <h3><?php echo htmlspecialchars($property['title']); ?></h3>
+                                    <div>
+                                        <div class="tag">
+                                            <?php echo ucfirst($property['sales_type']); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="price">$<?php echo number_format($property['price']); ?></p>
+                            </div>
                         </div>
-                        </a>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>

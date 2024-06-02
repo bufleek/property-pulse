@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $description = mysqli_real_escape_string($conn, $_POST['description']);
   $location = mysqli_real_escape_string($conn, $_POST['location']);
   $property_type = mysqli_real_escape_string($conn, $_POST['property_type']);
-  $bedrooms = (int)$_POST['bedrooms'];
+  $bedrooms = isset($_POST['bedrooms']) ? (int)$_POST['bedrooms'] : 1;
   $price = (float)$_POST['price'];
   $furnished = isset($_POST['furnished']) ? 1 : 0;
   $serviced = isset($_POST['serviced']) ? 1 : 0;
@@ -17,11 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $property_ref = mysqli_real_escape_string($conn, $_POST['property_ref']);
   $latitude = (float)$_POST['latitude'];
   $longitude = (float)$_POST['longitude'];
-  $available = isset($_POST['available']) ? 1 : 0;
+  $available = 1;
+  $area_code = $_POST['area_code'];
+  $sale_type = $_POST['sale_type'];
   $agent_id = $_SESSION['user_id'];
 
-  $sql = "INSERT INTO properties (title, description, location, property_type, bedrooms, price, furnished, serviced, shared, keywords, property_ref, agent_id, latitude, longitude, available)
-          VALUES ('$title', '$description', '$location', '$property_type', $bedrooms, $price, $furnished, $serviced, $shared, '$keywords', '$property_ref', $agent_id, $latitude, $longitude, $available)";
+  $sql = "INSERT INTO properties (title, description, location, property_type, bedrooms, price, furnished, serviced, shared, keywords, property_ref, agent_id, latitude, longitude, available, area_code, sales_type)
+          VALUES ('$title', '$description', '$location', '$property_type', $bedrooms, $price, $furnished, $serviced, $shared, '$keywords', '$property_ref', $agent_id, $latitude, $longitude, $available, '$area_code', '$sale_type')";
 
   if (mysqli_query($conn, $sql)) {
     $property_id = mysqli_insert_id($conn);
@@ -62,23 +64,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <?php if (isset($success) && $success) : ?>
     <div style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 10px; margin-top: 10px;">
-    Property listed successfully! 
-  </div>
+      Property listed successfully!
+    </div>
   <?php endif; ?>
   <form action="upload.php" method="POST" enctype="multipart/form-data">
     <!-- Basic Information Section -->
     <fieldset>
       <legend>Basic Information</legend>
-      <label for="title">Title:</label>
+      <label for="title">Title <span style="color:red;">*</span></label>
       <input type="text" id="title" name="title" required />
 
-      <label for="description">Description:</label>
+      <label for="description">Description <span style="color:red;">*</span></label>
       <textarea id="description" name="description" required></textarea>
 
-      <label for="location">Location:</label>
+      <label for="location">Address <span style="color:red;">*</span></label>
       <input type="text" id="location" name="location" required />
 
-      <label for="property_type">Property Type:</label>
+      <label for="area_code">Area Code <span style="color:red;">*</span></label>
+      <input type="text" id="area_code" name="area_code" required />
+
+      <label for="property_type">Property Type <span style="color:red;">*</span></label>
       <select id="property_type" name="property_type" required>
         <option value="apartment">Apartment</option>
         <option value="house">House</option>
@@ -89,49 +94,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Pricing and Details Section -->
     <fieldset>
       <legend>Pricing and Details</legend>
-      <label for="bedrooms">Bedrooms:</label>
-      <input type="number" id="bedrooms" name="bedrooms" required />
+      <label for="bedrooms">Bedrooms</label>
+      <input type="number" id="bedrooms" name="bedrooms" />
 
-      <label for="price">Price (USD):</label>
+      <label for="price">Price (USD) <span style="color:red;">*</span></label>
       <input type="number" id="price" name="price" required />
 
       <div class="checkbox-container">
-        <label for="furnished" class="inline">Furnished:</label>
+        <label for="furnished" class="inline">Furnished</label>
         <input type="checkbox" id="furnished" name="furnished" />
       </div>
 
       <div class="checkbox-container">
-        <label for="serviced" class="inline">Serviced:</label>
+        <label for="serviced" class="inline">Serviced</label>
         <input type="checkbox" id="serviced" name="serviced" />
       </div>
 
       <div class="checkbox-container">
-        <label for="shared" class="inline">Shared:</label>
+        <label for="shared" class="inline">Shared</label>
         <input type="checkbox" id="shared" name="shared" />
       </div>
+
+      <label for="sale_type">Sale Type</label>
+      <select id="sale_type" name="sale_type">
+        <option value="sale" selected>For Sale</option>
+        <option value="rent">For Rent</option>
+        <option value="short_lease">Short Let</option>
+      </select>
 
     </fieldset>
 
     <!-- Additional Information Section -->
     <fieldset>
-      <legend>Additional Information</legend>
-      <label for="keywords">Keywords:</label>
+      <legend>Additional Information (Optional)</legend>
+      <label for="keywords">Keywords</label>
       <input type="text" id="keywords" name="keywords" placeholder="e.g., 'pool', 'jacuzzi'" />
 
-      <label for="property_ref">Property Reference:</label>
+      <label for="property_ref">Property Reference</label>
       <input type="text" id="property_ref" name="property_ref" />
 
-      <label for="latitude">Latitude:</label>
+      <label for="latitude">Latitude</label>
       <input type="text" id="latitude" name="latitude" />
 
-      <label for="longitude">Longitude:</label>
+      <label for="longitude">Longitude</label>
       <input type="text" id="longitude" name="longitude" />
     </fieldset>
 
     <!-- Images Upload Section -->
     <fieldset>
       <legend>Images</legend>
-      <label for="images">Upload Images:</label>
+      <label for="images">Upload Images <span style="color:red;">*</span></label>
       <input type="file" id="images" name="images[]" multiple accept="image/*" required />
     </fieldset>
 

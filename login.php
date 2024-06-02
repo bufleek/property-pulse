@@ -1,11 +1,13 @@
 <?php
 session_start();
 
+include 'config/db.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include 'config/db.php';
+$next_url = isset($_GET['next_url']) ? $_GET['next_url'] : null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -49,20 +51,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="auth-logo">
             <img src="assets/images/logo.png" alt="Property Pulse" height="50" width="50">
         </div>
-        <form action="login.php" method="POST">
+        <form action="login.php<?php echo $next_url ? "?next_url=$next_url" : ""; ?>" method="POST">
             <h2>Login</h2>
             <?php if (isset($error)) : ?>
                 <p style="color: red;"><?php echo $error; ?></p>
             <?php endif; ?>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <div class="form-body">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
 
-            <button type="submit">Login</button>
-            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button style="margin-top: 30px;" type="submit">Login</button>
         </form>
+        <?php
+        if ($next_url) {
+            echo "<p style='margin-top: 30px;'>Don't have an account? <a href='signup.php?next_url=$next_url'>Sign Up</a></p>";
+        } else {
+            echo "<p style='margin-top: 30px;'>Don't have an account? <a href='signup.php'>Sign Up</a></p>";
+        }
+        ?>
     </div>
 </body>
 

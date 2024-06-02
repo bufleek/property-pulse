@@ -1,12 +1,3 @@
--- Create database
-CREATE DATABASE property_pulse;
-
-CREATE USER 'property_pulse'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-GRANT ALL PRIVILEGES ON property_pulse.* TO 'property_pulse'@'%';
-
-USE property_pulse;
-
--- Create the users table
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(255) NOT NULL,
@@ -16,7 +7,6 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Create the properties table
 CREATE TABLE properties (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
@@ -45,4 +35,32 @@ CREATE TABLE property_images (
     image_url VARCHAR(255) NOT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
+);
+
+/**
+ * Add age to users table
+ */
+ALTER TABLE users ADD COLUMN age INT;
+
+/**
+ * Add area_code, address & sale_type to properties table
+ */
+ALTER TABLE properties ADD COLUMN area_code VARCHAR(255);
+ALTER TABLE properties ADD COLUMN address VARCHAR(255);
+ALTER TABLE properties ADD COLUMN sales_type ENUM('rent', 'sale', 'short_lease') DEFAULT 'sale';
+
+/**
+ * Create purchases table
+ */
+
+CREATE TABLE purchases (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    property_id INT NOT NULL,
+    buyer_id INT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES properties(id),
+    FOREIGN KEY (buyer_id) REFERENCES users(id)
 );

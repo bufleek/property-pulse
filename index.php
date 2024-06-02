@@ -1,8 +1,9 @@
-<?php include 'includes/header.php';
+<?php
+include 'includes/header.php';
 
 $properties = [];
 
-$query = "SELECT * FROM properties ORDER BY RAND() LIMIT 12";
+$query = "SELECT * FROM properties WHERE available = true ORDER BY RAND() LIMIT 12";
 $result = mysqli_query($conn, $query);
 
 if ($result) {
@@ -28,7 +29,7 @@ if ($result) {
                 </label>
             </div>
 
-            <input type="text" placeholder="Enter a county, town or suburb" name="location" />
+            <input type="text" placeholder="Enter area code" name="area_code" />
 
             <div class="filters">
                 <select name="property_type">
@@ -126,8 +127,17 @@ if ($result) {
                         ?>
 
                         <img src="<?php echo $image_url; ?>" alt="Property Image">
-                        <h3><?php echo htmlspecialchars($property['title']); ?></h3>
-                        <p>$<?php echo number_format($property['price']); ?> - <?php echo $property['bedrooms']; ?> Beds</p>
+                        <div class="info">
+                            <div class="flex space-between">
+                                <h3><?php echo htmlspecialchars($property['title']); ?></h3>
+                                <div>
+                                    <div class="tag">
+                                        <?php echo ucfirst($property['sales_type']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="price">$<?php echo number_format($property['price']); ?></p>
+                        </div>
                     </div>
                 </a>
             <?php endforeach; ?>
