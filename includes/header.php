@@ -15,6 +15,7 @@ include 'config/db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Pulse</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -32,7 +33,16 @@ include 'config/db.php';
                     <li><a href="properties.php">Properties</a></li>
                     <?php if (isset($_SESSION['user_id'])) : ?>
                         <li><a href="upload.php" class="btn btn-solid-inverse">List a Property</a></li>
-                        <li><a href="logout.php">Logout</a></li>
+                        <li class="user-menu">
+                            <a href="#" class="btn btn-solid-inverse">
+                                <i class="fa fa-user"></i> 
+                            </a>
+                            <ul class="user-menu-dropdown">
+                                <li><a href="#">My Properties</a></li>
+                                <li><a href="purchases.php">My Purchases</a></li>
+                                <li><a href="logout.php">Logout</a></li>
+                            </ul>
+                        </li>
                     <?php else : ?>
                         <li><a href="signup.php" class="btn btn-outline-inverse">Register</a></li>
                         <li><a href="login.php" class="btn btn-solid-inverse">Sign In</a></li>
